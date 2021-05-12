@@ -19,35 +19,8 @@ const frameIn = [
         meta: {
           auth: true
         },
+        // component: _import('@/pages/home')
         component: _import('system/index')
-      },
-      // 演示页面
-      {
-        path: 'page1',
-        name: 'page1',
-        meta: {
-          title: '页面 1',
-          auth: true
-        },
-        component: _import('demo/page1')
-      },
-      {
-        path: 'page2',
-        name: 'page2',
-        meta: {
-          title: '页面 2',
-          auth: true
-        },
-        component: _import('demo/page2')
-      },
-      {
-        path: 'page3',
-        name: 'page3',
-        meta: {
-          title: '页面 3',
-          auth: true
-        },
-        component: _import('demo/page3')
       },
       // 系统 前端日志
       {
@@ -72,6 +45,42 @@ const frameIn = [
         name: 'redirect',
         hidden: true,
         component: _import('system/function/redirect')
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/pages/home'),
+        meta: {
+          auth: true,
+          title: '首页'
+        }
+      },
+      {
+        path: '/user',
+        name: 'user',
+        component: () => import('@/pages/user'),
+        meta: {
+          auth: true,
+          title: '用户'
+        }
+      },
+      {
+        path: '/paper',
+        name: 'paper',
+        component: () => import('@/pages/paper'),
+        meta: {
+          auth: true,
+          title: '报告'
+        }
+      },
+      {
+        path: '/sign',
+        name: 'sign',
+        component: () => import('@/pages/sign'),
+        meta: {
+          auth: true,
+          title: '签名'
+        }
       }
     ]
   }

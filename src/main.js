@@ -12,10 +12,26 @@ import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
 
+// 图表组件
+import VCharts from 'v-charts'
+
+// 表格组件
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import D2Crud from '@d2-projects/d2-crud'
+
+Vue.use(ElementUI)
+Vue.use(D2Crud)
+Vue.use(VCharts)
+
 // 核心插件
 Vue.use(d2Admin)
 
 new Vue({
+  // crud
+  el: '#app',
+
+  // raw
   router,
   store,
   i18n,

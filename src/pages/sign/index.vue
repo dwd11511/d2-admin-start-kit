@@ -1,29 +1,13 @@
 <template>
-  <d2-container type='full'>
-    <div class="A">
-          <el-card class="pie">
-            <h4 style="margin-left: 40%;">报告使用率</h4>
-            <ve-pie :data='chartData'></ve-pie>
-          </el-card>
-          <el-card class="numTable">
-            <d2-crud
-              :columns="columns"
-              :data="data"
-              :options="options"/>
-          </el-card>
-    </div>
-    <div class="A">
-          <el-card class="pie">
-            <h4 style="margin-left: 40%;">报告使用率</h4>
-            <ve-pie :data='chartData'></ve-pie>
-          </el-card>
-          <el-card class="numTable">
-            <d2-crud
-              :columns="columns"
-              :data="data"
-              :options="options"/>
-          </el-card>
-    </div>
+  <d2-container type='ghost'>
+    <el-card class="pie">
+      <h4>签名种类</h4>
+      <ve-pie :data='type.data' :settings='type.setting' height='600%'></ve-pie>
+    </el-card>
+    <el-card class="pie">
+      <h4>可用签名</h4>
+      <ve-pie :data='avalible.data' :settings='avalible.setting' height='600%'></ve-pie>
+    </el-card>
   </d2-container>
 </template>
 <script>
@@ -31,67 +15,48 @@
 export default {
   data () {
     return {
-      columns: [
-        {
-          title: '日期',
-          key: 'date',
-          sortable: true
+      avalible: {
+        data: {
+          columns: ['type', 'num'],
+          rows: [
+            { type: '接口错误', num: '1' }
+          ]
         },
-        {
-          title: '姓名',
-          key: 'name'
-        }
-      ],
-      data: [
-        {
-          date: '2016-05-02',
-          name: '王小虎'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎'
-        }
-      ],
-      options: {
-        defaultSort: {
-          prop: 'date',
-          order: 'descending'
+        setting: {
+          radius: 150,
+          offsetY: 350
         }
       },
-      chartData: {
-        columns: ['日期', '访问用户'],
-        rows: [
-          { 日期: '1/1', 访问用户: 1393 },
-          { 日期: '1/2', 访问用户: 3530 },
-          { 日期: '1/3', 访问用户: 2923 },
-          { 日期: '1/4', 访问用户: 1723 },
-          { 日期: '1/5', 访问用户: 3792 },
-          { 日期: '1/6', 访问用户: 4593 }
-        ]
+      type: {
+        data: {
+          columns: ['type', 'num'],
+          rows: [
+            { type: '接口错误', num: '1' }
+          ]
+        },
+        setting: {
+          radius: 150,
+          offsetY: 350
+        }
       }
     }
+  },
+  mounted () {
+    this.$axios.get(process.env.VUE_APP_API + 'group_vlun_type').then(response => { this.type.data.rows = response.data.data })
+    this.$axios.get(process.env.VUE_APP_API + 'avalible_report').then(response => { this.avalible.data.rows = response.data.data })
   }
 }
 </script>
 
-<style scoped>
-  .A {
-    display: table-row;
-  }
-  .A .pie {
-    width: 60%;
+<style>
+  .pie {
+    width: 48%;
     float: left;
     min-width:300px;
+    margin: 3px;
+    border-radius: 10px;
   }
-  .A .numTable {
-    width: 30%;
+  h4 {
+    text-align: center;
   }
 </style>

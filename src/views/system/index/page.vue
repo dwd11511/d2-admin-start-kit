@@ -1,44 +1,98 @@
 <template>
-  <d2-container class="page">
-    <d2-page-cover>
-      <d2-icon-svg class="logo" name="d2-admin"/>
-      <template slot="footer">
-        <div class="btn-group">
-          <span class="btn-group__btn" @click="$open('https://github.com/d2-projects')">开源组织</span> |
-          <span class="btn-group__btn" @click="$open('https://d2.pub/zh/doc/d2-admin')">文档</span> |
-          <span class="btn-group__btn" @click="$open('https://github.com/d2-projects/d2-admin-start-kit')">简化版</span> |
-          <span class="btn-group__btn" @click="$open('https://juejin.im/user/57a48b632e958a006691b946/posts')">掘金</span> |
-          <el-popover :width="172" trigger="hover">
-            <p class="d2-mt-0 d2-mb-10">今日前端</p>
-            <img src="./image/qr@2x.png" style="width: 172px;">
-            <span slot="reference" class="btn-group__btn btn-group__btn--link">
-              <d2-icon name="weixin"/>
-              微信公众号
-            </span>
-            <p style="font-size: 12px; margin-top: 0px; margin-bottom: 0px;">
-              官方公众号，主要推送前端技术类文章、框架资源、学习教程，以及 D2 系列项目更新信息
-            </p>
-          </el-popover>
-        </div>
-        <d2-badge/>
-        <d2-help/>
-      </template>
-    </d2-page-cover>
+  <d2-container type='ghost'>
+    <div class='d2-pt d2-pb'>
+      <el-card shadow='never' class='d2-card top'>
+          <h4>总报告</h4>
+          <div class="number">{{ paper }}</div>
+      </el-card>
+      <el-card shadow='never' class='d2-card top'>
+          <h4>总签名</h4>
+          <div class="number">{{ sign }}</div>
+      </el-card>
+      <el-card shadow='never' class='d2-card bottom newdata' >
+          <h4>新增数据</h4>
+          <ve-histogram :data='bar.data' :settings='bar.settings' :extend='bar.extend' height='500%'></ve-histogram>
+      </el-card>
+    </div>
   </d2-container>
 </template>
 
 <script>
-import D2Badge from './components/d2-badge'
-import D2Help from './components/d2-help'
-import D2PageCover from './components/d2-page-cover'
 export default {
-  components: {
-    D2Badge,
-    D2Help,
-    D2PageCover
+  data () {
+    return {
+      paper: '接口错误',
+      sign: '接口错误',
+      bar: {
+        data: {
+          columns: ['日期', '新增报告', '新增签名', '比例'],
+          rows: [
+            { 日期: '接口错误', 新增报告: 0, 新增签名: 0, 比例: 0 }
+          ]
+        },
+        settings: {
+          dimension: ['日期'],
+          axisSite: { right: ['比例'] },
+          yAxisType: ['KMB', 'percent'],
+          yAxisName: ['数值', '比率']
+          // stack: { 数量: ['比例', '新增报告', '新增签名'] }
+        },
+        extend: {
+          series: {
+            barWidth: '25%',
+            barGap: '-10%',
+            label: { show: true, position: 'top' }
+          }
+        }
+      }
+    }
+  },
+  mounted () {
+    this.updateInfo()
+  },
+  methods: {
+    updateInfo () {
+      this.$axios.get(process.env.VUE_APP_API + 'sum_report_num').then(response => { this.paper = response.data.data })
+      this.$axios.get(process.env.VUE_APP_API + 'sum_sign_num').then(response => { this.sign = response.data.data })
+      this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_sign_num').then(response => { this.bar.data.rows = response.data.data })
+    }
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang='css' scoped>
+  .d2-card {
+    margin: 3px;
+    border-radius: 10px;
+    float: left;
+    min-width:300px；
+  }
+  .top {
+    width: 48%;
+  }
+  .bottom {
+    width: 40%;
+  }
+  .number {
+    font-size: 4em;
+    text-align: center;
+    background: linear-gradient(45deg, rgb(30, 224, 214) 0%, rgb(43, 231, 159) 33.3%, rgb(70, 173, 56) 66.6%, rgb(39, 207, 185) 33.3%);
+    background-clip: text; /*截取背景区域为文字*/
+    color: transparent;
+    background-size: 300% 100%; /*扩大背景区域*/
+    animation: number 2s infinite linear;
+  }
+  @keyframes number{
+    0%  { background-position: 0 0;}
+    100% { background-position: -150% 0;}
+  }
+  h4 {
+    text-align: center;
+  }
+  .flow {
+    display: none;
+  }
+  .newdata {
+    width: 97%;
+  }
 </style>

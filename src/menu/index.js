@@ -16,14 +16,11 @@ function supplementPath (menu) {
 }
 
 export const menuHeader = supplementPath([
-  { path: '/home', title: '主页', icon: 'home' },
-  { path: '/paper', title: '报告', icon: 'flask' },
-  { path: '/sign', title: '签名', icon: 'flash' },
-  { path: '/user', title: '用户', icon: 'github' }
+
 ])
 
 export const menuAside = supplementPath([
-  { path: '/home', title: '主页', icon: 'home' },
+  { path: '/index', title: '主页', icon: 'home' },
   { path: '/paper', title: '报告', icon: 'flask' },
   { path: '/sign', title: '签名', icon: 'flash' },
   { path: '/user', title: '用户', icon: 'github' }

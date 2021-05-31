@@ -14,7 +14,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
   SYS_USER_LOGIN (data = {}) {
     // 模拟数据
     mock
-      .onAny('/login')
+      .onAny('/admin/login')
       .reply(config => {
         const user = find(users, tools.parse(config.data))
         return user
@@ -23,7 +23,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       })
     // 接口请求
     return requestForMock({
-      url: '/login',
+      url: '/admin/login',
       method: 'post',
       data
     })

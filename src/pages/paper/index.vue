@@ -1,20 +1,21 @@
 <template>
   <d2-container type='ghost'>
     <div class='d2-pt d2-pb'>
-      <el-card shadow='never' class='d2-card' style='width: 800px; float: left' >
-        <ve-histogram :data='line.chartData' :settings='line.settings'></ve-histogram>
+      <el-card shadow='never' class='line' >
+        <ve-histogram height='600%' :data='line.chartData' :settings='line.settings' :extend='line.extend'></ve-histogram>
       </el-card>
-      <el-card shadow='never' class='d2-card' style='width: 800px; float: left' >
+      <el-card shadow='never' class='table' >
         <d2-crud
           :columns='table.columns'
           :data='table.data'
-          :options='table.options'/>
+          :options='table.options'
+          :pagination='table.pagination'/>
       </el-card>
     </div>
   </d2-container>
 </template>
-<script>
 
+<script>
 export default {
   data () {
     return {
@@ -27,15 +28,7 @@ export default {
           },
           {
             title: '网站',
-            key: 'website',
-            filters: [
-              { text: 'a', value: 'a' },
-              { text: 'b', value: 'b' }
-            ],
-            filterMethod (value, row) {
-              return row.tag === value
-            },
-            filterPlacement: 'bottom-end'
+            key: 'website'
           },
           {
             title: '数量',
@@ -45,51 +38,64 @@ export default {
         ],
         data: [
           {
-            date: '2016-05-02',
-            website: 'a',
-            number: 23
-          },
-          {
-            date: '2016-05-02',
-            website: 'b',
-            number: 23
-          },
-          {
-            date: '2016-05-01',
-            website: 'a',
-            number: 12
-          },
-          {
-            date: '2016-05-01',
-            website: 'b',
-            number: 12
+            date: '接口错误',
+            website: '接口错误',
+            number: 0
           }
         ],
         options: {
           defaultSort: {
             prop: 'date',
-            order: 'descending'
+            order: 'descending',
+            height: '500'
           }
+        },
+        pagination: {
+          currentPage: 1,
+          pageSize: 10,
+          total: 0
         }
       },
       line: {
         chartData: {
           columns: ['日期', '报告总量', '新增报告'],
           rows: [
-            { 日期: '1/1', 新增报告: 10, 报告总量: 1000 },
-            { 日期: '1/2', 新增报告: 20, 报告总量: 1020 },
-            { 日期: '1/3', 新增报告: 40, 报告总量: 1060 },
-            { 日期: '1/4', 新增报告: 80, 报告总量: 1140 },
-            { 日期: '1/5', 新增报告: 40, 报告总量: 1180 },
-            { 日期: '1/6', 新增报告: 20, 报告总量: 1200 }
+            { 日期: '接口错误', 新增报告: 0, 报告总量: 0 }
           ]
         },
         settings: {
           stack: { 数量: ['新增报告', '报告总量'] },
           showLine: ['报告总量']
+        },
+        extend: {
+          series: {
+            barWidth: 40,
+            label: { show: true, position: 'top' }
+          }
         }
       }
     }
+  },
+  mounted () {
+    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_until_sum').then(response => { this.line.chartData.rows = response.data.data })
+    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_source').then(response => { this.table.data = response.data.data })
   }
 }
 </script>
+
+<style>
+  .line {
+    width: 50%;
+    min-width: 500px;
+    float: left;
+    margin: 3px;
+    border-radius: 10px;
+ }
+ .table {
+   width: 46%;
+   min-width: 300px;
+   float: left;
+   margin: 3px;
+   border-radius: 10px;
+ }
+</style>

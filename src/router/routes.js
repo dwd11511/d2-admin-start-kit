@@ -19,7 +19,6 @@ const frameIn = [
         meta: {
           auth: true
         },
-        // component: _import('@/pages/home')
         component: _import('system/index')
       },
       // 系统 前端日志
@@ -45,15 +44,6 @@ const frameIn = [
         name: 'redirect',
         hidden: true,
         component: _import('system/function/redirect')
-      },
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/pages/home'),
-        meta: {
-          auth: true,
-          title: '首页'
-        }
       },
       {
         path: '/user',

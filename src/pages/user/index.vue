@@ -56,17 +56,12 @@ export default {
           size: 'small',
           fixed: 'right',
           confirm: true,
-          show (index, row) {
-            if (row.showRemoveButton) {
+          show: true,
+          disabled (index, row) {
+            if (row.active === '启用') {
               return true
             }
             return false
-          },
-          disabled (index, row) {
-            if (row.active === '启用') {
-              return false
-            }
-            return true
           }
         }
       }

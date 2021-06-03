@@ -84,7 +84,6 @@ export default {
       )
     },
     UpdateUser () {
-      console.log('UpdateUser')
       this.$axios.get(process.env.VUE_APP_API + 'users').then(response => { this.data = response.data.data })
     }
   }

@@ -59,9 +59,9 @@ export default {
           show: true,
           disabled (index, row) {
             if (row.active === '启用') {
-              return true
+              return false
             }
-            return false
+            return true
           }
         }
       }

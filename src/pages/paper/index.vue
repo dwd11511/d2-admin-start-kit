@@ -38,8 +38,8 @@ export default {
         ],
         data: [
           {
-            date: '接口错误',
-            website: '接口错误',
+            date: '加载中',
+            website: '加载中',
             number: 0
           }
         ],
@@ -60,7 +60,7 @@ export default {
         chartData: {
           columns: ['日期', '报告总量', '新增报告'],
           rows: [
-            { 日期: '接口错误', 新增报告: 0, 报告总量: 0 }
+            { 日期: '加载中', 新增报告: 0, 报告总量: 0 }
           ]
         },
         settings: {

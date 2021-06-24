@@ -21,13 +21,13 @@
 export default {
   data () {
     return {
-      paper: '接口错误',
-      sign: '接口错误',
+      paper: '加载中',
+      sign: '加载中',
       bar: {
         data: {
           columns: ['日期', '新增报告', '新增签名', '比例'],
           rows: [
-            { 日期: '接口错误', 新增报告: 0, 新增签名: 0, 比例: 0 }
+            { 日期: '加载中', 新增报告: 0, 新增签名: 0, 比例: 0 }
           ]
         },
         settings: {

@@ -40,9 +40,9 @@ export default {
       ],
       data: [
         {
-          id: '接口错误',
-          name: '接口错误',
-          active: '接口错误'
+          id: '加载中',
+          name: '加载中',
+          active: '加载中'
         }
       ],
       pagination: {

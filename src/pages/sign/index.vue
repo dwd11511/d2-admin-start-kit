@@ -19,7 +19,7 @@ export default {
         data: {
           columns: ['type', 'num'],
           rows: [
-            { type: '接口错误', num: '1' }
+            { type: '加载中', num: '1' }
           ]
         },
         setting: {
@@ -31,7 +31,7 @@ export default {
         data: {
           columns: ['type', 'num'],
           rows: [
-            { type: '接口错误', num: '1' }
+            { type: '加载中', num: '1' }
           ]
         },
         setting: {

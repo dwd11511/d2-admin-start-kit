@@ -57,6 +57,7 @@ export default {
           fixed: 'right',
           confirm: true,
           show: true,
+          text: '禁用',
           disabled (index, row) {
             if (row.active === '启用') {
               return false

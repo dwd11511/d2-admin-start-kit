@@ -71,6 +71,15 @@ const frameIn = [
           auth: true,
           title: '签名'
         }
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/pages/order'),
+        meta: {
+          auth: true,
+          title: '工单'
+        }
       }
     ]
   }

@@ -23,5 +23,6 @@ export const menuAside = supplementPath([
   { path: '/index', title: '主页', icon: 'home' },
   { path: '/paper', title: '报告', icon: 'flask' },
   { path: '/sign', title: '签名', icon: 'flash' },
-  { path: '/user', title: '用户', icon: 'github' }
+  { path: '/user', title: '用户', icon: 'id-card' },
+  { path: '/order', title: '工单', icon: 'address-book' }
 ])

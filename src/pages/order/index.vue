@@ -30,6 +30,10 @@ export default {
           key: 'email'
         },
         {
+          title: '签名哈希',
+          key: 'rule'
+        },
+        {
           title: '反馈内容',
           key: 'content'
         },
@@ -52,7 +56,8 @@ export default {
           email: '加载中',
           create_time: '加载中',
           content: '加载中',
-          is_complete: '加载中'
+          is_complete: '加载中',
+          rule: '加载中'
         }
       ],
       pagination: {

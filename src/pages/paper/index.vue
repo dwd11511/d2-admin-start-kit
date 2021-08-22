@@ -65,7 +65,9 @@ export default {
         },
         settings: {
           stack: { 数量: ['新增报告', '报告总量'] },
-          showLine: ['报告总量']
+          showLine: ['报告总量'],
+          min: [60000],
+          max: [70000]
         },
         extend: {
           series: {
@@ -77,8 +79,16 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_until_sum').then(response => { this.line.chartData.rows = response.data.data })
-    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_source').then(response => { this.table.data = response.data.data })
+    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_until_sum').then(
+      response => {
+        this.line.chartData.rows = response.data.data
+        this.line.settings.min = [response.data.data[0].报告总量 - response.data.data[0].报告总量 % 10]
+        this.line.settings.max = [response.data.data[6].报告总量 - response.data.data[6].报告总量 % 10 + 10]
+      })
+    this.$axios.get(process.env.VUE_APP_API + 'last_7days_report_source').then(
+      response => {
+        this.table.data = response.data.data
+      })
   }
 }
 </script>
